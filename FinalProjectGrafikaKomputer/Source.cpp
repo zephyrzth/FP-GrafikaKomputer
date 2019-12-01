@@ -127,7 +127,7 @@ void renderScene(void) {
 	glVertex3f(-10.0f, 7.0f, 10.0f);
 	glEnd();
 
-	// Draw blackboard
+	// Draw whiteboard
 	glColor3f(0.4f, 0.2f, 0.0f);
 	glBegin(GL_QUADS);
 	glVertex3f(-6.0f, 2.0f, -9.99f);
@@ -136,7 +136,7 @@ void renderScene(void) {
 	glVertex3f(6.0f, 2.0f, -9.99f);
 	glEnd();
 
-	glColor3f(0.149f, 0.149f, 0.149f);
+	glColor3f(0.851f, 0.851f, 0.851f);
 	glBegin(GL_QUADS);
 	glVertex3f(-5.8f, 2.2f, -9.98f);
 	glVertex3f(-5.8f, 5.3f, -9.98f);
