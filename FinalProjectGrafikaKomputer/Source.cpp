@@ -127,6 +127,23 @@ void renderScene(void) {
 	glVertex3f(-10.0f, 7.0f, 10.0f);
 	glEnd();
 
+	// Draw blackboard
+	glColor3f(0.4f, 0.2f, 0.0f);
+	glBegin(GL_QUADS);
+	glVertex3f(-6.0f, 2.0f, -9.99f);
+	glVertex3f(-6.0f, 5.5f, -9.99f);
+	glVertex3f(6.0f, 5.5f, -9.99f);
+	glVertex3f(6.0f, 2.0f, -9.99f);
+	glEnd();
+
+	glColor3f(0.149f, 0.149f, 0.149f);
+	glBegin(GL_QUADS);
+	glVertex3f(-5.8f, 2.2f, -9.98f);
+	glVertex3f(-5.8f, 5.3f, -9.98f);
+	glVertex3f(5.8f, 5.3f, -9.98f);
+	glVertex3f(5.8f, 2.2f, -9.98f);
+	glEnd();
+
 	// Draw prof's chair
 	Chair profChair;
 	glPushMatrix();
@@ -171,120 +188,7 @@ void renderScene(void) {
 		}
 	}
 
-	//// Draw prof's table
-	//Table profTable;
-	//glPushMatrix();
-	//glTranslatef(6.0f, 1.4f, -7.6f);
-	//glScalef(0.5f, 0.5f, 0.5f);
-	//glRotatef(-30.0, 0.0, 1.0, 0.0);
-	//profTable.drawTable();
-	//glPopMatrix();
-
-	//// Draw student chairs
-	//Chair studentChair[4][4];
-	//for (int i = -3; i <= 3; i += 2) {
-	//	for (int j = -3; j <= 3; j += 2) {
-	//		glPushMatrix();
-	//		glTranslatef(i*2.0, 0.8f, j * 2.0 + 2.2f);
-	//		glScalef(0.25f, 0.25f, 0.25f);
-	//		glRotatef(180.0, 0.0, 1.0, 0.0);
-	//		studentChair[i][j].drawChair();
-	//		glPopMatrix();
-	//	}
-	//}
-
-	//// Draw student tables
-	//Table studentTable[4][4];
-	//for (int i = -3; i <= 3; i += 2) {
-	//	for (int j = -3; j <= 3; j += 2) {
-	//		glPushMatrix();
-	//		glTranslatef(i*2.0 + 0.3f, 1.2f, j * 2.0 + 1.2f);
-	//		glScalef(0.4f, 0.4f, 0.4f);
-	//		// glRotatef(180.0, 0.0, 1.0, 0.0);
-	//		studentTable[i][j].drawTable();
-	//		glPopMatrix();
-	//	}
-	//}
-
-	//// Draw cupboard
-	//Cupboard cupboard;
-	//glPushMatrix();
-	//glTranslatef(8.49f, 0.0f, -3.5f);
-	//glRotatef(-90.0, 0.0, 1.0, 0.0);
-	//cupboard.drawCupboard();
-	//glPopMatrix();
-
-	//// Draw blackboard
-	//glColor3f(0.4f, 0.2f, 0.0f);
-	//glBegin(GL_QUADS);
-	//glVertex3f(-6.0f, 2.0f, -9.99f);
-	//glVertex3f(-6.0f, 5.5f, -9.99f);
-	//glVertex3f(6.0f, 5.5f, -9.99f);
-	//glVertex3f(6.0f, 2.0f, -9.99f);
-	//glEnd();
-
-	//glColor3f(0.149f, 0.149f, 0.149f);
-	//glBegin(GL_QUADS);
-	//glVertex3f(-5.8f, 2.2f, -9.98f);
-	//glVertex3f(-5.8f, 5.3f, -9.98f);
-	//glVertex3f(5.8f, 5.3f, -9.98f);
-	//glVertex3f(5.8f, 2.2f, -9.98f);
-	//glEnd();
-
-	////Floor pattern
-	//glColor3f(0.149f, 0.149f, 0.149f);
-	//glLineWidth(3.0f);
-	//for (int i = 0; i < 20; i += 2)
-	//{
-	//	glBegin(GL_LINES);
-	//	glVertex3f(-10.0f + i, 0.001f, -10.01f);
-	//	glVertex3f(-10.0f + i, 0.001f, 10.01f);
-	//	glEnd();
-	//}
-	//for (int i = 0; i < 20; i += 2)
-	//{
-	//	glBegin(GL_LINES);
-	//	glVertex3f(-10.0f, 0.001f, -10.01f + i);
-	//	glVertex3f(10.0f, 0.001f, -10.01f + i);
-	//	glEnd();
-	//}
-
-	////windows
-	//Window w;
-	//w.drawWindow1();
-	//w.drawWindow2();
-	//w.drawWindowSill();
-	//glPushMatrix();
-	//glTranslatef(0.0f, 0.0f, 8.0f);
-	//w.drawWindowSill();
-	//glPopMatrix();
-
-	////Draw Snowmen
-	//Snowman s;
-	//glPushMatrix();
-	//glTranslatef(-9.7f, 2.0f, -3.0);
-	//glScalef(0.3f, 0.3f, 0.3f);
-	//s.drawSnowMan();
-	//glPopMatrix();
-
-	//if (x < -8.0 && x > -9.0 && z < -1.0 && z > -2.0) {
-	//	interactWithSnowman();
-	//}
-
-
-	//glPushMatrix();
-	//glTranslatef(0.0f, 6.0f, 0.0);
-	//glScalef(0.3f, 0.3f, 0.3f);
-	//f.drawFan();
-	//glPopMatrix();
-
-	//Shelf sh;
-	//glPushMatrix();
-	//glTranslatef(8.99f, 3.5f, 4.0);
-	//glScalef(0.25f, 0.25f, 0.25f);
-	//glRotatef(-90, 0.0f, 1.0f, 0.0f);
-	//sh.drawShelf();
-	//glPopMatrix();
+	
 
 	if (abs(mouseX) > 0.3) {
 		angle -= (0.004f * mouseX);
