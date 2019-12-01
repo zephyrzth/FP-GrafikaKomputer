@@ -4,6 +4,7 @@
 
 #include <GL/freeglut.h>
 #include <GL/freeglut_ext.h>
+#include "chair.h"
 
 #define WINDOW_WIDTH 1000
 #define WINDOW_HEIGHT 1000
@@ -125,14 +126,27 @@ void renderScene(void) {
 	glVertex3f(-10.0f, 7.0f, 10.0f);
 	glEnd();
 
-	//// Draw prof's chair
-	//Chair profChair;
-	//glPushMatrix();
-	//glTranslatef(6.0f, 1.0f, -9.0f);
-	//glScalef(0.32f, 0.32f, 0.32f);
-	//glRotatef(-30.0, 0.0, 1.0, 0.0);
-	//profChair.drawChair();
-	//glPopMatrix();
+	// Draw prof's chair
+	Chair profChair;
+	glPushMatrix();
+	glTranslatef(6.0f, 1.0f, -9.0f);
+	glScalef(0.32f, 0.32f, 0.32f);
+	glRotatef(-30.0, 0.0, 1.0, 0.0);
+	profChair.drawChair();
+	glPopMatrix();
+
+	// Draw student chairs
+	Chair studentChair[4][4];
+	for (int i = -3; i <= 3; i += 2) {
+		for (int j = -3; j <= 3; j += 2) {
+			glPushMatrix();
+			glTranslatef(i*2.0, 0.8f, j * 2.0 + 2.2f);
+			glScalef(0.25f, 0.25f, 0.25f);
+			glRotatef(180.0, 0.0, 1.0, 0.0);
+			studentChair[i][j].drawChair();
+			glPopMatrix();
+		}
+	}
 
 	//// Draw prof's table
 	//Table profTable;
