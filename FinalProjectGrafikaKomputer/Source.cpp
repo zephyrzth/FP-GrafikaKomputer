@@ -328,6 +328,9 @@ void processNormalKeys(unsigned char key, int xx, int yy) {
 
 	if (key == 27)
 		exit(0);
+
+	//  Request display update
+	glutPostRedisplay();
 }
 
 
