@@ -27,9 +27,7 @@ float mouseX = 0.0f, mouseY = 0.0f;
 float angle = 0.0, yAngle = 0.0;
 
 void renderScene(void) {
-
 	// Clear Color and Depth Buffers
-
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	// Reset transformations
