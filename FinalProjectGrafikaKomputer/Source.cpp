@@ -128,20 +128,12 @@ void renderScene(void) {
 	glEnd();
 
 	// Draw whiteboard
-	glColor3f(0.4f, 0.2f, 0.0f);
-	glBegin(GL_QUADS);
-	glVertex3f(-6.0f, 2.0f, -9.99f);
-	glVertex3f(-6.0f, 5.5f, -9.99f);
-	glVertex3f(6.0f, 5.5f, -9.99f);
-	glVertex3f(6.0f, 2.0f, -9.99f);
-	glEnd();
-
 	glColor3f(0.851f, 0.851f, 0.851f);
 	glBegin(GL_QUADS);
-	glVertex3f(-5.8f, 2.2f, -9.98f);
-	glVertex3f(-5.8f, 5.3f, -9.98f);
-	glVertex3f(5.8f, 5.3f, -9.98f);
-	glVertex3f(5.8f, 2.2f, -9.98f);
+	glVertex3f(-9.8f, 2.2f, -9.98f);
+	glVertex3f(-9.8f, 5.3f, -9.98f);
+	glVertex3f(-1.8f, 5.3f, -9.98f);
+	glVertex3f(-1.8f, 2.2f, -9.98f);
 	glEnd();
 
 	// Draw prof's chair
