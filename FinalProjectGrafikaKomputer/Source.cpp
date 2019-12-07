@@ -273,6 +273,9 @@ void processNormalKeys(unsigned char key, int xx, int yy) {
 	else if (key == 'z') {
 		roll -= 0.5f;
 	}
+	else if (key == 't') {
+
+	}
 
 	if (key == 27)
 		exit(0);
