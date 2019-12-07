@@ -43,28 +43,10 @@ void renderScene(void) {
 	glColor3f(0.7f, 0.7f, 0.7f);
 	glBegin(GL_QUADS);
 	glVertex3f(-10.0f, 0.0f, -10.0f);
-	glVertex3f(-10.0f, 0.0f, 20.0f);
-	glVertex3f(10.0f, 0.0f, 20.0f);
+	glVertex3f(-10.0f, 0.0f, 10.0f);
+	glVertex3f(10.0f, 0.0f, 10.0f);
 	glVertex3f(10.0f, 0.0f, -10.0f);
 	glEnd();
-
-	// Draw ladder
-	glColor3f(0.52f, 0.52f, 0.52f);
-	glBegin(GL_QUADS);
-	glVertex3f(-10.0f, 0.75f, -10.0f);
-	glVertex3f(10.0f, 0.75f, -10.0f);
-	glVertex3f(10.0f, 0.75f, -6.0f);
-	glVertex3f(-10.0f, 0.75f, -6.0f);
-	glEnd();
-
-	glColor3f(0.52f, 0.52f, 0.52f);
-	glBegin(GL_QUADS);
-	glVertex3f(10.0f, 0.75f, -6.0f);
-	glVertex3f(-10.0f, 0.75f, -6.0f);
-	glVertex3f(-10.0f, 0.0f, -6.0f);
-	glVertex3f(10.0f, 0.0f, -6.0f);
-	glEnd();
-
 
 	//wall
 	glColor3f(0.9294f, 0.9216f, 0.8353f);
@@ -146,26 +128,18 @@ void renderScene(void) {
 	glEnd();
 
 	// Draw whiteboard
-	glColor3f(0.4f, 0.2f, 0.0f);
-	glBegin(GL_QUADS);
-	glVertex3f(-6.0f, 2.5f, -9.99f);
-	glVertex3f(-6.0f, 6.0f, -9.99f);
-	glVertex3f(6.0f, 6.0f, -9.99f);
-	glVertex3f(6.0f, 2.5f, -9.99f);
-	glEnd();
-
 	glColor3f(0.851f, 0.851f, 0.851f);
 	glBegin(GL_QUADS);
-	glVertex3f(-5.8f, 2.7f, -9.98f);
-	glVertex3f(-5.8f, 5.8f, -9.98f);
-	glVertex3f(5.8f, 5.8f, -9.98f);
-	glVertex3f(5.8f, 2.7f, -9.98f);
+	glVertex3f(-9.8f, 2.2f, -9.98f);
+	glVertex3f(-9.8f, 5.3f, -9.98f);
+	glVertex3f(-1.8f, 5.3f, -9.98f);
+	glVertex3f(-1.8f, 2.2f, -9.98f);
 	glEnd();
 
 	// Draw prof's chair
 	Chair profChair;
 	glPushMatrix();
-	glTranslatef(6.0f, 1.75f, -8.5f);
+	glTranslatef(6.0f, 1.0f, -9.0f);
 	glScalef(0.32f, 0.32f, 0.32f);
 	glRotatef(-30.0, 0.0, 1.0, 0.0);
 	profChair.drawChair();
@@ -174,7 +148,7 @@ void renderScene(void) {
 	// Draw prof's table
 	Table profTable;
 	glPushMatrix();
-	glTranslatef(6.0f, 2.15f, -7.1f);
+	glTranslatef(6.0f, 1.4f, -7.6f);
 	glScalef(0.5f, 0.5f, 0.5f);
 	glRotatef(-30.0, 0.0, 1.0, 0.0);
 	profTable.drawTable();
