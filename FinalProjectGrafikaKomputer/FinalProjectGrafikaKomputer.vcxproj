@@ -136,11 +136,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="chair.cpp" />
+    <ClCompile Include="Slide.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="table.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="chair.h" />
+    <ClInclude Include="Slide.h" />
     <ClInclude Include="table.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

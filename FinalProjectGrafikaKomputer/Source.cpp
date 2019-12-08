@@ -9,12 +9,18 @@
 #include <GL/soil.h>
 #include "chair.h"
 #include "table.h"
+#include "Slide.h"
+#include<stdio.h>
+#include<cstdio>
 
 #define WINDOW_WIDTH 1000
 #define WINDOW_HEIGHT 1000
 # define M_PI           3.14159265358979323846  /* pi */
 
 using namespace std;
+
+int rFlag = 0; 
+float yu = 5.9, yd = 2.5;
 
 // XZ position of the camera
 float x = -5.0f, z = 18.0f;
@@ -246,6 +252,29 @@ void renderScene(void) {
 	glVertex3f(-1.8f, 2.75f, -9.98f);
 	glEnd();
 
+	//draw slide show
+	if (rFlag == 2)
+	{
+		if (yd > 5.8) {
+			rFlag = 0;
+		}
+		yd += 0.01;
+		printf("%lf\n", yd);
+		glutPostRedisplay();
+	}
+	if (rFlag == 1)
+	{
+		if (yd < 2.6) {
+			rFlag = 0;
+		}
+			yd -= 0.01;
+		glutPostRedisplay();
+	}
+	Slide slideShow;
+	glPushMatrix();
+	slideShow.drawSlide(yu, yd);
+	glPopMatrix();
+
 	// Draw prof's chair
 	Chair profChair;
 	glPushMatrix();
@@ -466,6 +495,15 @@ void changeSize(int w, int h) {
 	glMatrixMode(GL_MODELVIEW);
 }
 
+void slideMenu(int option)//fungsi untuk menu
+{
+	if (option == 1)
+		rFlag = 1;
+	if (option == 2)
+		rFlag = 2;
+	glutPostRedisplay();
+}
+
 
 int main(int argc, char **argv) {
 
@@ -487,6 +525,10 @@ int main(int argc, char **argv) {
 	glutKeyboardFunc(processNormalKeys);
 	glutSpecialFunc(processSpecialKeys);
 	glutPassiveMotionFunc(processMouseMovement);
+	glutCreateMenu(slideMenu);
+	glutAddMenuEntry("Down slide show", 1);
+	glutAddMenuEntry("Up slide show", 2);
+	glutAttachMenu(GLUT_RIGHT_BUTTON);
 
 	// OpenGL init
 	glEnable(GL_DEPTH_TEST);
