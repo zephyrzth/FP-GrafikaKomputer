@@ -167,7 +167,8 @@ void renderScene(void) {
 	glEnd();
 
 	//wall
-	glColor3f(1.0f, 0.851f, 0.702f);
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glColor3f(0.52f, 0.52f, 0.52f);
 	glBegin(GL_QUADS);
 	glVertex3f(-10.0f, 0.0f, -10.0f);
 	glVertex3f(-10.0f, 7.0f, -10.0f);
@@ -176,7 +177,7 @@ void renderScene(void) {
 	glEnd();
 
 	//wall with door
-	glColor3f(1.0f, 0.851f, 0.702f);
+	glColor3f(0.52f, 0.52f, 0.52f);
 	glBegin(GL_QUADS);
 	glVertex3f(-10.0f, 0.0f, 10.0f);
 	glVertex3f(-10.0f, 7.0f, 10.0f);
@@ -184,7 +185,7 @@ void renderScene(void) {
 	glVertex3f(-6.0f, 0.0f, 10.0f);
 	glEnd();
 
-	glColor3f(1.0f, 0.851f, 0.702f);
+	glColor3f(0.52f, 0.52f, 0.52f);
 	glBegin(GL_QUADS);
 	glVertex3f(-3.0f, 0.0f, 10.0f);
 	glVertex3f(-3.0f, 7.0f, 10.0f);
@@ -192,7 +193,7 @@ void renderScene(void) {
 	glVertex3f(10.0f, 0.0f, 10.0f);
 	glEnd();
 
-	glColor3f(1.0f, 0.851f, 0.702f);
+	glColor3f(0.52f, 0.52f, 0.52f);
 	glBegin(GL_QUADS);
 	glVertex3f(-6.0f, 7.0f, 10.0f);
 	glVertex3f(-6.0f, 5.0f, 10.0f);
@@ -219,7 +220,7 @@ void renderScene(void) {
 
 
 	//wall
-	glColor3f(1.0f, 0.851f, 0.702f);
+	glColor3f(0.52f, 0.52f, 0.52f);
 	glBegin(GL_QUADS);
 	glVertex3f(10.0f, 0.0f, -10.0f);
 	glVertex3f(10.0f, 7.0f, -10.0f);
@@ -227,7 +228,7 @@ void renderScene(void) {
 	glVertex3f(10.0f, 0.0f, 10.0f);
 	glEnd();
 
-	/*//ceiling
+	//ceiling
 	glColor3f(0.95f, 0.95f, 0.95f);
 	glBegin(GL_QUADS);
 	glVertex3f(-10.0f, 7.0f, -10.0f);
@@ -326,7 +327,7 @@ void renderScene(void) {
 			studentTableSIDE[i][j].drawTable();
 			glPopMatrix();
 		}
-	}*/
+	}
 
 	glBindTexture(GL_TEXTURE_2D, 0);
 	glColor3f(1.0f, 1.0f, 1.0f);
