@@ -2,8 +2,11 @@
 #include <math.h>
 #include <string.h>
 
+#include <GL/glew.h>
 #include <GL/freeglut.h>
+#include <GL/GL.h>
 #include <GL/freeglut_ext.h>
+#include <soil.h>
 #include "chair.h"
 #include "table.h"
 
@@ -28,10 +31,96 @@ float mouseX = 0.0f, mouseY = 0.0f;
 // angle of rotation for the camera direction
 float angle = 0.0, yAngle = 0.0;
 
+//Penyimpanan tekstur
+const GLsizei n = 10;
+GLuint *texture = new GLuint[10];
+/*
+* Load tekstur dari file BMP dan membuat tekstur
+*/
+/*int loadBMPFile(const char *filename)
+{
+	glClearColor(0.0, 0.0, 0.0, 0.0);
+	glShadeModel(GL_FLAT);
+	//glEnable(GL_DEPTH_TEST);
+
+	// Data read from the header of the BMP file
+	unsigned char header[54]; // Each BMP file begins by a 54-bytes header
+	unsigned int dataPos;     // Position in the file where the actual data begins
+	unsigned int width, height;
+	unsigned int imageSize;   // = width*height*3
+	// Actual RGB data
+	unsigned char * data;
+
+	FILE * file;
+	fopen_s(&file, filename, "rb");
+	if (!file) { printf("Image could not be opened\n"); return 0; }
+
+	if (fread(header, 1, 54, file) != 54) { // If not 54 bytes read : problem
+		printf("Not a correct BMP file\n");
+		return false;
+	}
+
+	if (header[0] != 'B' || header[1] != 'M') {
+		printf("Not a correct BMP file\n");
+		return 0;
+	}
+
+	// Read ints from the byte array
+	dataPos = *(int*)&(header[0x0A]);
+	imageSize = *(int*)&(header[0x22]);
+	width = *(int*)&(header[0x12]);
+	height = *(int*)&(header[0x16]);
+
+	// Some BMP files are misformatted, guess missing information
+	if (imageSize == 0)    imageSize = width * height * 3; // 3 : one byte for each Red, Green and Blue component
+	if (dataPos == 0)      dataPos = 54; // The BMP header is done that way
+
+	// Create a buffer
+	data = new unsigned char[imageSize];
+
+	// Read the actual data from the file into the buffer
+	fread(data, 1, imageSize, file);
+
+	//Everything is in memory now, the file can be closed
+	fclose(file);
+
+	// Pixel alignment: each row is word aligned (aligned to a 4 byte boundary)
+	//    Therefore, no need to call glPixelStore( GL_UNPACK_ALIGNMENT, ... );
+
+	glGenTextures(1, &texture[0]); // Create The Texture
+	glBindTexture(GL_TEXTURE_2D, texture[0]);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+
+	// Typical Texture Generation Using Data From The Bitmap
+
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_BGR_EXT, GL_UNSIGNED_BYTE, data);
+	//glActiveTexture(GL_TEXTURE0);
+	//glBindTexture(GL_TEXTURE_2D, texture[0]);
+	return 0;
+}*/
+
+void loadImage(const char *filename, int sign) {
+	int width = 0;
+	int height = 0, nrChannels;
+	glBindTexture(GL_TEXTURE_2D, texture[sign]);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	unsigned char* image = SOIL_load_image(filename, &width, &height, &nrChannels, SOIL_LOAD_RGB);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	SOIL_free_image_data(image);
+}
+
 void renderScene(void) {
 	// Clear Color and Depth Buffers
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, texture[0]);
 	// Reset transformations
 	glLoadIdentity();
 	// Set the camera
@@ -40,14 +129,17 @@ void renderScene(void) {
 		roll + 0.0f, 2.5f, 0.0f);
 
 	// Draw floor
-	glColor3f(0.7f, 0.7f, 0.7f);
 	glBegin(GL_QUADS);
+	glTexCoord2f(0.0f, 0.0f);
 	glVertex3f(-10.0f, 0.0f, -10.0f);
+	glTexCoord2f(0.0f, 8.0f);
 	glVertex3f(-10.0f, 0.0f, 10.0f);
+	glTexCoord2f(8.0f, 8.0f);
 	glVertex3f(10.0f, 0.0f, 10.0f);
+	glTexCoord2f(8.0f, 0.0f);
 	glVertex3f(10.0f, 0.0f, -10.0f);
 	glEnd();
-
+	
 	// Draw ladder
 	glColor3f(0.38f, 0.38f, 0.38f);
 	glBegin(GL_QUADS);
@@ -66,7 +158,7 @@ void renderScene(void) {
 	glEnd();
 
 	//wall
-	glColor3f(0.9294f, 0.9216f, 0.8353f);
+	glBindTexture(GL_TEXTURE_2D, texture[1]);
 	glBegin(GL_QUADS);
 	glVertex3f(-10.0f, 0.0f, -10.0f);
 	glVertex3f(-10.0f, 7.0f, -10.0f);
@@ -135,7 +227,7 @@ void renderScene(void) {
 	glVertex3f(10.0f, 0.0f, 10.0f);
 	glEnd();
 
-	//ceiling
+	/*//ceiling
 	glColor3f(0.95f, 0.95f, 0.95f);
 	glBegin(GL_QUADS);
 	glVertex3f(-10.0f, 7.0f, -10.0f);
@@ -171,12 +263,13 @@ void renderScene(void) {
 	profTable.drawTable();
 	glPopMatrix();
 
-	// Draw student chairs
+
+	// Draw student chairs MID
 	Chair studentChair[4][4];
 	for (int i = -3; i <= 3; i += 2) {
 		for (int j = -3; j <= 3; j += 2) {
 			glPushMatrix();
-			glTranslatef(i*2.0, 0.8f, j * 2.0 + 2.2f);
+			glTranslatef(i*0.8 - 0.4, 0.8f, j * 2.0 + 2.2f);
 			glScalef(0.25f, 0.25f, 0.25f);
 			glRotatef(180.0, 0.0, 1.0, 0.0);
 			studentChair[i][j].drawChair();
@@ -184,21 +277,59 @@ void renderScene(void) {
 		}
 	}
 
-	// Draw student tables
-	Table studentTable[4][4];
-	for (int i = -3; i <= 3; i += 2) {
+	// Draw student chairs SIDE left
+	Chair studentChairSIDEleft[2][4];
+	for (int i = -3; i <= 3; i += 6) {
 		for (int j = -3; j <= 3; j += 2) {
 			glPushMatrix();
-			glTranslatef(i*2.0 + 0.3f, 1.2f, j * 2.0 + 1.2f);
-			glScalef(0.4f, 0.4f, 0.4f);
-			// glRotatef(180.0, 0.0, 1.0, 0.0);
-			studentTable[i][j].drawTable();
+			glTranslatef(i*0.2 - 7.9, 0.8f, j * 2.0 + 2.2f);
+			glScalef(0.25f, 0.25f, 0.25f);
+			glRotatef(180.0, 0.0, 1.0, 0.0);
+			studentChairSIDEleft[i][j].drawChair();
 			glPopMatrix();
 		}
 	}
 
-	
+	// Draw student chairs SIDE right
+	Chair studentChairSIDEright[4][4];
+	for (int i = -3; i <= 3; i += 6) {
+		for (int j = -3; j <= 3; j += 2) {
+			glPushMatrix();
+			glTranslatef(i*0.2 + 7.1, 0.8f, j * 2.0 + 2.2f);
+			glScalef(0.25f, 0.25f, 0.25f);
+			glRotatef(180.0, 0.0, 1.0, 0.0);
+			studentChairSIDEright[i][j].drawChair();
+			glPopMatrix();
+		}
+	}
 
+	// Draw student tables MID
+	Table studentTableMID[2][4];
+	for (int i = -3; i <= 3; i += 6) {
+		for (int j = -3; j <= 3; j += 2) {
+			glPushMatrix();
+			glTranslatef(i*0.55, 1.2f, j * 2.0 + 1.2f);
+			glScalef(0.4f, 0.4f, 0.4f);
+			// glRotatef(180.0, 0.0, 1.0, 0.0);
+			studentTableMID[i][j].drawTable();
+			glPopMatrix();
+		}
+	}
+	// Draw student tables SIDE
+	Table studentTableSIDE[2][4];
+	for (int i = -3; i <= 3; i += 6) {
+		for (int j = -3; j <= 3; j += 2) {
+			glPushMatrix();
+			glTranslatef(i*2.50, 1.2f, j * 2.0 + 1.2f);
+			glScalef(0.4f, 0.4f, 0.4f);
+			// glRotatef(180.0, 0.0, 1.0, 0.0);
+			studentTableSIDE[i][j].drawTable();
+			glPopMatrix();
+		}
+	}*/
+
+	glBindTexture(GL_TEXTURE_2D, 0);
+	glColor3f(1.0f, 1.0f, 1.0f);
 	if (abs(mouseX) > 0.3) {
 		angle -= (0.004f * mouseX);
 		lx = sin(angle);
@@ -211,6 +342,7 @@ void renderScene(void) {
 		ly = sin(yAngle);
 	}
 
+	glFlush();
 	glutSwapBuffers();
 }
 
@@ -342,6 +474,11 @@ int main(int argc, char **argv) {
 	glutInitWindowPosition(0, 0);
 	glutInitWindowSize(WINDOW_WIDTH, WINDOW_HEIGHT);
 	glutCreateWindow("Classroom");
+	glewInit();
+	//loadBMPFile("./LAND2.BMP");
+	glGenTextures(n, texture);
+	loadImage("floor.jpg", 0);
+	loadImage("sidewall.jpg", 1);
 
 	// register callbacks
 	glutDisplayFunc(renderScene);

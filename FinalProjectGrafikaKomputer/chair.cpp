@@ -1,7 +1,7 @@
 #include "chair.h"
 
 void Chair::drawChair() {
-	glColor3f(0.0f, 0.0f, 0.0f);
+	glColor3f(0.10f, 0.10f, 0.10f);
 	glBegin(GL_QUADS);
 
 	//Front
