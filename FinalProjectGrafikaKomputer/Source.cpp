@@ -6,7 +6,7 @@
 #include <GL/freeglut.h>
 #include <GL/GL.h>
 #include <GL/freeglut_ext.h>
-#include <soil.h>
+#include <GL/soil.h>
 #include "chair.h"
 #include "table.h"
 
